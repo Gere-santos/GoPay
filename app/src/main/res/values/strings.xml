@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">GoPayments</string>
+    <string name="cadastrese">Não possui senha? Clique aqui e cadastre-se</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="digite_e_mail">Digite E-mail:</string>
+    <string name="digite_senha">Digite Senha:</string>
+    <string name="digite_seu_nome">Digite seu nome:</string>
+    <string name="todo">TODO</string>
+    <string name="logar">Logar</string>
+    <string name="saldo">Saldo</string>
+    <string name="pagar_pessoas">Pagar Pessoas</string>
+    <string name="recarga_celular">Recarga Celular</string>
+    <string name="carteira">Carteira</string>
+    <string name="extrato">Extrato</string>
+    <string name="pagar_boleto">Pagar boleto</string>
+    <string name="pagar_qr_code">Pagar Qr Code</string>
+    <string name="cvv">CVV</string>
+    <string name="validade">Validade</string>
+    <string name="apelido_do_cart_o_opcional">Apelido do cartão (opcional)</string>
+    <string name="nome_do_titular">Nome do titular</string>
+    <string name="cadastrar_cart_o">Cadastrar cartão</string>
+    <string name="cpf_do_titular">CPF do titular</string>
+    <string name="salvar">Salvar</string>
+    <string name="digite_telefone">Digite Telefone:</string>
+    <string name="bilhete_nico">Bilhete único</string>
+    <string name="nickname">\@geree.santos</string>
+</resources>
