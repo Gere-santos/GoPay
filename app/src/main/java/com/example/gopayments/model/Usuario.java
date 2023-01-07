@@ -1,6 +1,8 @@
 package com.example.gopayments.model;
 
 import com.example.gopayments.config.ConfiguracaoFireBase;
+import com.example.gopayments.helper.GeradorIUD;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
@@ -14,22 +16,37 @@ public class Usuario implements Serializable {
     private Double receitaTotal = 0.00;
     private Double despesaTotal = 0.00;
     private String telefone;
-  // private String foto;
+    private String apelido;
+    private FirebaseUser firebaseUser;
+
 
 public void Salvar(){
     DatabaseReference firebase = ConfiguracaoFireBase.getFirebaseDatabase();
     firebase.child("usuarios")
             .child(this.uid)
             .setValue(this);
-
-
 }
+
+    public void SalvarPerfil(){
+
+        DatabaseReference firebase = ConfiguracaoFireBase.getFirebaseDatabase();
+        firebase.child("usuarios")
+                .child(GeradorIUD.geradorId())
+                .setValue(this);
+    }
 
     public Usuario() {
     }
 
+    public String getApelido() {
+        return apelido;
+    }
 
-        public String getTelefone() {
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
+
+    public String getTelefone() {
             return telefone;
         }
 

@@ -37,13 +37,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ActivityMain extends AppCompatActivity {
     private FirebaseAuth autenticacao;
-    private TextView textBoasVindas, textViewSaldoConta;
+    private TextView textBoasVindas, textViewSaldoConta, apelido;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private ArrayList<Transacao> listaTransacoes = new ArrayList<>();
     private DatabaseReference usuariosRef = ConfiguracaoFireBase.getFirebaseDatabase().child("usuarios");
     private Double receitaGerada;
     private Double despesaGerada;
     private CircleImageView profile_image;
+
 
 
 
@@ -55,13 +56,17 @@ public class ActivityMain extends AppCompatActivity {
         textBoasVindas = findViewById(R.id.textBoasVindas);
         textViewSaldoConta = findViewById(R.id.textViewSaldoConta);
         profile_image = findViewById(R.id.profile_image);
+        apelido = findViewById(R.id.apelido);
         recuperaValoresTransacoes();
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("GoPay");
         toolbar.setTitleTextColor(Color.WHITE);
 
+
+
         FirebaseUser firebaseUser = ConfiguracaoFireBase.getFirebaseUser();
+       textBoasVindas.setText("Olá " + firebaseUser.getDisplayName()+ " sejá bem vindo!");
         Uri url = firebaseUser.getPhotoUrl();
         if (url != null){
             Glide.with(ActivityMain.this)
@@ -71,6 +76,8 @@ public class ActivityMain extends AppCompatActivity {
             profile_image.setImageResource(R.drawable.ic_baseline_account_circle_24);
         }
 }
+
+
 
 public void verificaUserLogado(){
  autenticacao = ConfiguracaoFireBase.getFirebaseAutenticacao();
@@ -98,7 +105,9 @@ public void cadastrarCartao(View view){
         super.onStart();
         verificaUserLogado();
         recuperarSaldo();
+
     }
+
 
     public void pagarPessoas(View view){
         startActivity(new Intent(this, ActivityListaContatos.class));
@@ -128,7 +137,8 @@ public void cadastrarCartao(View view){
 
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Usuario usuario = snapshot.getValue(Usuario.class);
-                    textBoasVindas.setText("Olá " + usuario.getNome().toUpperCase() + "sejá bem vindo!");
+                    //textBoasVindas.setText("Olá " + usuario.getNome().toUpperCase() + "sejá bem vindo!");
+                    apelido.setText("@"+usuario.getApelido());
                     Double SaldoTratado = usuario.getReceitaTotal() - usuario.getDespesaTotal();
                   if(SaldoTratado > 0) {
                       textViewSaldoConta.setText("R$ " + MascaraMonetaria.adiconarMascara(SaldoTratado));

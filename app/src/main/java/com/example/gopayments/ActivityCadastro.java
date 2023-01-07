@@ -32,26 +32,21 @@ public class ActivityCadastro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
-        editTextNome = findViewById(R.id.editTextNome);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonCadastrar = findViewById(R.id.buttonLogar);
-        editTextTelefone = findViewById(R.id.editTextTelefone);
+
 
     buttonCadastrar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-           String editTextTelefoneString = editTextTelefone.getText().toString();
-           String editTextNomeString = editTextNome.getText().toString();
            String editTextEmailString = editTextEmail.getText().toString();
            String editTextPasswordString = editTextPassword.getText().toString();
-           if(!editTextNomeString.isEmpty() && !editTextEmailString.isEmpty() &&
-                   !editTextPasswordString.isEmpty() && !editTextTelefoneString.isEmpty()){
+           if(!editTextEmailString.isEmpty() &&
+                   !editTextPasswordString.isEmpty()){
                usuario = new Usuario();
-               usuario.setNome(editTextNomeString);
                usuario.setEmail(editTextEmailString);
                usuario.setSenha(editTextPasswordString);
-               usuario.setTelefone(editTextTelefoneString);
                cadastrarUser();
            }else{
                Toast.makeText(ActivityCadastro.this, "Preencha todos os campos"

@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -50,7 +51,9 @@ public class CriarPerfilActivity extends AppCompatActivity {
     private CircleImageView profile_image;
     private StorageReference storageReference;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private EditText editTextNomePerfil;
+    private EditText editTextNomePerfil, editTextTelefone, editTextApelido;
+    private Button button;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,10 @@ public class CriarPerfilActivity extends AppCompatActivity {
         galeria = findViewById(R.id.imageButtonGaleria);
         profile_image = findViewById(R.id.profile_image);
         editTextNomePerfil = findViewById(R.id.editTextNomePerfil);
+        button = findViewById(R.id.button);
+        editTextTelefone = findViewById(R.id.editTextTelefonePerfil);
+        editTextApelido = findViewById(R.id.editTextApelido);
+
 
         FirebaseUser firebaseUser = ConfiguracaoFireBase.getFirebaseUser();
         Uri url = firebaseUser.getPhotoUrl();
@@ -98,6 +105,30 @@ public class CriarPerfilActivity extends AppCompatActivity {
 
                 if(i.resolveActivity(getPackageManager())!= null){
                     startActivityForResult(i, SELECAO_GALERIA); }
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String editTextTelefoneString = editTextTelefone.getText().toString();
+                String editTextApelidoString = editTextApelido.getText().toString();
+                String editTextANomeString = editTextNomePerfil.getText().toString();
+
+                if(!editTextApelidoString.isEmpty() && !editTextANomeString.isEmpty() &&
+                         !editTextTelefoneString.isEmpty()){
+                    usuario = new Usuario();
+                    usuario.setNome(editTextANomeString);
+                    ConfiguracaoFireBase.atualizarNome(usuario.getNome());
+                    usuario.setTelefone(editTextTelefoneString);
+                    usuario.setApelido(editTextApelidoString);
+                    usuario.SalvarPerfil();
+                    Toast.makeText(CriarPerfilActivity.this, "Alterações realizadas com sucesso!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(CriarPerfilActivity.this, "Preencha todos os campos"
+                            , Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

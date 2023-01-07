@@ -302,14 +302,13 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/apelido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
-            android:text="@string/nickname"
             android:textSize="16sp" />
     </LinearLayout>
 
