@@ -55,29 +55,14 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         textBoasVindas = findViewById(R.id.textBoasVindas);
         textViewSaldoConta = findViewById(R.id.textViewSaldoConta);
-        profile_image = findViewById(R.id.profile_image);
-        apelido = findViewById(R.id.apelido);
+
         recuperaValoresTransacoes();
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("GoPay");
         toolbar.setTitleTextColor(Color.WHITE);
 
-
-
-        FirebaseUser firebaseUser = ConfiguracaoFireBase.getFirebaseUser();
-       textBoasVindas.setText("Olá " + firebaseUser.getDisplayName()+ " sejá bem vindo!");
-        Uri url = firebaseUser.getPhotoUrl();
-        if (url != null){
-            Glide.with(ActivityMain.this)
-                    .load(url)
-                    .into(profile_image);
-        }else{
-            profile_image.setImageResource(R.drawable.ic_baseline_account_circle_24);
-        }
 }
-
-
 
 public void verificaUserLogado(){
  autenticacao = ConfiguracaoFireBase.getFirebaseAutenticacao();
@@ -105,9 +90,7 @@ public void cadastrarCartao(View view){
         super.onStart();
         verificaUserLogado();
         recuperarSaldo();
-
     }
-
 
     public void pagarPessoas(View view){
         startActivity(new Intent(this, ActivityListaContatos.class));
@@ -124,9 +107,7 @@ public void cadastrarCartao(View view){
         startActivity(new Intent(this, ExtratoActivity.class));
     }
 
-    public void abrirEditarPerfil(View view){
-        startActivity(new Intent(this, CriarPerfilActivity.class));
-    }
+
 
     public void recuperarSaldo() {
         if (user != null) {
@@ -137,8 +118,7 @@ public void cadastrarCartao(View view){
 
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Usuario usuario = snapshot.getValue(Usuario.class);
-                    //textBoasVindas.setText("Olá " + usuario.getNome().toUpperCase() + "sejá bem vindo!");
-                    apelido.setText("@"+usuario.getApelido());
+                    textBoasVindas.setText("Olá " + usuario.getNome().toUpperCase() + "sejá bem vindo!");
                     Double SaldoTratado = usuario.getReceitaTotal() - usuario.getDespesaTotal();
                   if(SaldoTratado > 0) {
                       textViewSaldoConta.setText("R$ " + MascaraMonetaria.adiconarMascara(SaldoTratado));
@@ -218,10 +198,6 @@ public void cadastrarCartao(View view){
             autenticacao.signOut();
             startActivity(new Intent(this, AcitivityLogin.class));
             finish();
-            return true;
-        }
-        else if (id == R.id.menuConfiguracoes) {
-            startActivity(new Intent(this, CriarPerfilActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
